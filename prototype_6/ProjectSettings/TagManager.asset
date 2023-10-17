@@ -6,6 +6,8 @@ TagManager:
   tags:
   - shadow
   - flag
+  - fire
+  - grass
   layers:
   - Default
   - TransparentFX
