@@ -129,10 +129,14 @@ public class character_push : MonoBehaviour
     {
         if (other.CompareTag("fire"))
         {
-            Debug.Log("Collision with fire");
-            OnFire = true;
-            fireFXGO.SetActive(true);
-            TinyFire.SetActive(false);
+            if (TinyFire.activeInHierarchy)
+            {
+                Debug.Log("Collision with fire");
+                OnFire = true;
+                fireFXGO.SetActive(true);
+                TinyFire.SetActive(false);
+            }
+
         }
     }
 
