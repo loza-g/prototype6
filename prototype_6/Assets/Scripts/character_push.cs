@@ -11,9 +11,8 @@ public class character_push : MonoBehaviour
     [SerializeField]
     private float forceMagnitude;
     public bool OnFire;
-    [SerializeField] private GameObject TinyFire;
 
-    private float xInput, yInput;
+    private Vector2 moveInput;
     [SerializeField] private float moveSpeed = 0.01f;
 
     [SerializeField] private GameObject fireFXGO;
@@ -24,14 +23,23 @@ public class character_push : MonoBehaviour
     private PushableBlock collidedPushableBlock;
     private Vector3 pushDirection;
 
+    [SerializeField] private LayerMask grassDetectLayer;
+
+    private CircleWipeController circleWipeController;
+
     private void Awake()
     {
         controls = new PlayerControls();
-        controls.Gameplay.HorizontalMove.performed += ctx => xInput = ctx.ReadValue<float>();
-        controls.Gameplay.HorizontalMove.canceled += ctx => xInput = 0;
-        controls.Gameplay.VerticalMove.performed += ctx => yInput = ctx.ReadValue<float>();
-        controls.Gameplay.VerticalMove.canceled += ctx => yInput = 0;
+        controls.Gameplay.HorizontalMove.performed += ctx => moveInput.x = ctx.ReadValue<float>();
+        controls.Gameplay.HorizontalMove.canceled += ctx => moveInput.x = 0;
+        controls.Gameplay.VerticalMove.performed += ctx => moveInput.y = ctx.ReadValue<float>();
+        controls.Gameplay.VerticalMove.canceled += ctx => moveInput.y = 0;
+        controls.Gameplay.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        controls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Gameplay.Push.performed += OnPushButtonPressed;
+        controls.Gameplay.Restart.performed += ctx => GameManager.Instance.RestartCurrentScene();// circleWipeController.FadeOut(() => GameManager.Instance.RestartCurrentScene());
+
+        circleWipeController = FindObjectOfType<CircleWipeController>();
     }
 
     private void OnPushButtonPressed(InputAction.CallbackContext context)
@@ -59,6 +67,16 @@ public class character_push : MonoBehaviour
         controls.Disable();
     }
 
+    public void DisableInput()
+    {
+        controls.Disable();
+    }
+
+    public void EnableInput()
+    {
+        controls.Enable();
+    }
+
     void Start()
     {
         OnFire = false;
@@ -66,11 +84,11 @@ public class character_push : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveInput = -new Vector3(xInput, 0, yInput).normalized;
+        Vector3 input = -new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
-        var skewedInput = matrix.MultiplyPoint3x4(moveInput);
+        var skewedInput = matrix.MultiplyPoint3x4(input);
         
 
         transform.Translate(skewedInput * moveSpeed * Time.deltaTime);
@@ -119,7 +137,9 @@ public class character_push : MonoBehaviour
             //destroy block
             //Destroy(collision.gameObject);
             fireFXGO.SetActive(false);
-            IgniteAdjacentGrassBlocks(collision.gameObject.transform.position);
+            OnFire = false;
+            StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
+            IgniteAdjacentGrassBlocks(collision.collider);
 
         }
     }
@@ -160,65 +180,94 @@ public class character_push : MonoBehaviour
             
     }
 
-    private void IgniteAdjacentGrassBlocks(Vector3 position)
+    float destroyTime = 2f;
+    float igniteDelayTime = 0;
+    RaycastHit hit;
+    List<Collider> visitedGrassColliders = new List<Collider>();
+    private void IgniteAdjacentGrassBlocks(Collider grassCollider)
     {
-        Collider[] colliders = Physics.OverlapSphere(position, 1f); 
+        //Collider[] colliders = Physics.OverlapSphere(position, 1f, grassDetectLayer); 
+        List<Collider> colliders = new List<Collider>();
+
+        if(Physics.Raycast(grassCollider.transform.position, Vector3.right, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+        if (Physics.Raycast(grassCollider.transform.position, Vector3.left, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+        if (Physics.Raycast(grassCollider.transform.position, Vector3.forward, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+        if (Physics.Raycast(grassCollider.transform.position, Vector3.back, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+        if (Physics.Raycast(grassCollider.transform.position, Vector3.up, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+        if (Physics.Raycast(grassCollider.transform.position, Vector3.down, out hit, 1, grassDetectLayer))
+        {
+            if (!visitedGrassColliders.Contains(hit.collider))
+            {
+                colliders.Add(hit.collider);
+                visitedGrassColliders.Add(hit.collider);
+            }
+        }
+
+        if (colliders.Count == 0) { igniteDelayTime = 0; return; }
+
         foreach (Collider collider in colliders)
         {
             if (collider.gameObject.CompareTag("grass"))
             {
-                // Ignite the adjacent grass block
-                Debug.Log("ignited adjacent grass block with fire");
-                GameObject fireAnimation = Instantiate(firePrefab, collider.transform);
-                StartCoroutine(DestroyAfterDelay(fireAnimation, 2f));
-                StartCoroutine(DestroyColliderAfterDelay(collider.gameObject, 2f)); // Destroy the collider object after 3 seconds
-                StartCoroutine(DestroyAfterIgnition(2f));
-                //Destroy(collider.gameObject);
-
+                
+                StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collider.gameObject, igniteDelayTime+= 0.35f)); // Destroy the collider object after 3 seconds
+                
+                IgniteAdjacentGrassBlocks(collider);
             }
         }
     }
 
-    private IEnumerator DestroyAfterIgnition(float delay)
+    private IEnumerator GenerateFireAndDestroyColliderAfterDelay(GameObject colliderObject, float delay)
     {
         yield return new WaitForSeconds(delay);
-        OnFire = false;
-        fireFXGO.SetActive(false);
-    }
-    private IEnumerator DestroyAfterDelay(GameObject objectToDestroy, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        // Turn off the fire 
-        var particleSystem = objectToDestroy.GetComponent<ParticleSystem>();
-        if (particleSystem != null)
-        {
-            particleSystem.Stop();
-        }
-        Destroy(objectToDestroy);
-    }
+        Instantiate(firePrefab, colliderObject.transform);
 
-    private IEnumerator DestroyColliderAfterDelay(GameObject colliderObject, float delay)
-    {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(destroyTime + delay);
         Destroy(colliderObject);
     }
 
-
-    private void OnTriggerEnter(Collider other)
+    public void SetPlayerOnFire()
     {
-        if (other.CompareTag("fire"))
-        {
-            if (TinyFire.activeInHierarchy)
-            {
-                Debug.Log("Collision with fire");
-                OnFire = true;
-                fireFXGO.SetActive(true);
-                TinyFire.SetActive(false);
-            }
-
-        }
+        OnFire = true;
+        fireFXGO.SetActive(true);
     }
 
+  
     //private void OnControllerColliderHit(ControllerColliderHit hit)
     //{
     //    Rigidbody rigidbody = hit.collider.attachedRigidbody;

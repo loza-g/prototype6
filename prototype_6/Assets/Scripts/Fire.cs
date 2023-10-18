@@ -9,10 +9,13 @@ namespace ns
 	/// </summary>
 	public class Fire : MonoBehaviour
 	{
+        [SerializeField] private GameObject fireFXGO;
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
+                fireFXGO.SetActive(false);
+                other.GetComponentInParent<character_push>().SetPlayerOnFire();
             }
         }
     }

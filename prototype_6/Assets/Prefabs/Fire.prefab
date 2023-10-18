@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1006665470185180533}
   - component: {fileID: 1976678897919184518}
   - component: {fileID: 6298915666049491025}
+  - component: {fileID: 5902633776772573366}
   m_Layer: 0
   m_Name: Fire
   m_TagString: fire
@@ -86,6 +87,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &5902633776772573366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021254861442363487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1fc2b6dfb1ed12449ad6ec25a0e94bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireFXGO: {fileID: 2663025796854182981}
 --- !u!1001 &967271339294098748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -299,6 +313,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
+--- !u!1 &2663025796854182981 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011671376998, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
+  m_PrefabInstance: {fileID: 2663732235961655331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2664248230778280539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000012166036088, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}

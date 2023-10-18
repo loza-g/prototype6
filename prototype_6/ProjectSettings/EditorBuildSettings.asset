@@ -6,9 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Shence_Level0.unity
+    guid: 7f3474dba063d1e4993851e2182d1b1e
+  - enabled: 1
     path: Assets/Scenes/Shence_Level1.unity
-    guid: e9846a944b7983c45b69e411fea5869c
+    guid: fccc932a503d01645a46841d96d45b80
   - enabled: 1
     path: Assets/Scenes/Shence_Level2.unity
+    guid: e9846a944b7983c45b69e411fea5869c
+  - enabled: 1
+    path: Assets/Scenes/Shence_Level3.unity
     guid: 386dbfae991a78541b1f335e6092ab80
+  - enabled: 1
+    path: Assets/Scenes/Shence_Level4.unity
+    guid: 388ee19302908e04fa45dddb71cd8b11
+  - enabled: 1
+    path: Assets/Scenes/Shence_Level5.unity
+    guid: ff1e7fe83dc3175419e39a745e3b2015
   m_configObjects: {}

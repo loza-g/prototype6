@@ -58,6 +58,12 @@ namespace ns
             }
         }
 
-        
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.right);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.left);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.forward);
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.back);
+        }
     }
 }

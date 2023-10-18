@@ -18,17 +18,16 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            // Call the RestartGame method.
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
     }
 
     public void LoadNextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void RestartCurrentScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }

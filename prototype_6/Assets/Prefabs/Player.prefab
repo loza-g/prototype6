@@ -4764,9 +4764,12 @@ MonoBehaviour:
   forceMagnitude: 5
   OnFire: 0
   TinyFire: {fileID: 0}
-  moveSpeed: 1
+  moveSpeed: 2
   fireFXGO: {fileID: 7081589262424317809}
   firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
+  grassDetectLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!54 &3781811736894053386
 Rigidbody:
   m_ObjectHideFlags: 0
