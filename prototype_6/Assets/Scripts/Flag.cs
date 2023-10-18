@@ -11,7 +11,7 @@ namespace ns
 	public class Flag : MonoBehaviour
 	{
         private CircleWipeController circleWipeController;
-
+        [SerializeField] private AudioSource audioPlayer;
 
         private void Start()
         {
@@ -22,6 +22,7 @@ namespace ns
         {
             if (other.CompareTag("Player"))
             {
+                audioPlayer.Play();
                 other.GetComponentInParent<character_push>().DisableInput();
                 circleWipeController.FadeOut(() => GameManager.Instance.LoadNextScene());
             }

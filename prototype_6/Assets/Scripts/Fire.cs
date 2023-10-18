@@ -10,12 +10,18 @@ namespace ns
 	public class Fire : MonoBehaviour
 	{
         [SerializeField] private GameObject fireFXGO;
-        private void OnTriggerEnter(Collider other)
+        [SerializeField] private AudioSource audioPlayer;
+   private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
+                if (fireFXGO.activeInHierarchy)
+                {
+                    audioPlayer.Play();
+                }
                 fireFXGO.SetActive(false);
                 other.GetComponentInParent<character_push>().SetPlayerOnFire();
+               
             }
         }
     }
