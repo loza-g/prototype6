@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,15 @@ namespace ns
 		[SerializeField] private float pushSpeed = 1;
 
         [SerializeField] private GameObject[] arrowIndicatorArr;
+
+        [SerializeField] private MMF_Player pushingFeedbacks; 
         public void Move(Vector3 direction)
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
 
             StartCoroutine(MoveToTarget(transform.position + direction));
-            
+
+            pushingFeedbacks?.PlayFeedbacks();
         }
 
 		private IEnumerator MoveToTarget(Vector3 target)

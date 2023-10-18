@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using ns;
 using System;
 using System.Collections;
@@ -27,6 +28,13 @@ public class character_push : MonoBehaviour
 
     private CircleWipeController circleWipeController;
 
+    [SerializeField] private MMF_Player walkingFeedbacks;
+    [SerializeField] private float walkingInterval = 0.35f;
+    private float startWalkTime;
+
+    [SerializeField] private MMF_Player contactFeedbacks;
+    [SerializeField] private MMF_Player fireStartFeedbacks;
+    [SerializeField] private MMF_Player fireStopFeedbacks;
     private void Awake()
     {
         controls = new PlayerControls();
@@ -89,6 +97,15 @@ public class character_push : MonoBehaviour
         var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
         var skewedInput = matrix.MultiplyPoint3x4(input);
+
+        if(input.magnitude > 0)
+        {
+            if(startWalkTime < Time.time)
+            {
+                walkingFeedbacks?.PlayFeedbacks();
+                startWalkTime = Time.time + walkingInterval;
+            }
+        }
         
 
         transform.Translate(skewedInput * moveSpeed * Time.deltaTime);
@@ -128,6 +145,8 @@ public class character_push : MonoBehaviour
 
             SetPushDirection(collision);
             collidedPushableBlock.UpdateArrowIndicator(pushDirection);
+
+            contactFeedbacks?.PlayFeedbacks();
             //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
         }
 
@@ -256,8 +275,11 @@ public class character_push : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Instantiate(firePrefab, colliderObject.transform);
+        Instantiate(fireStartFeedbacks.gameObject, null).GetComponent<MMF_Player>().PlayFeedbacks();
+        //fireStartFeedbacks?.PlayFeedbacks();
 
         yield return new WaitForSeconds(destroyTime + delay);
+        Instantiate(fireStopFeedbacks.gameObject, null).GetComponent<MMF_Player>().PlayFeedbacks();
         Destroy(colliderObject);
     }
 

@@ -12,6 +12,7 @@ namespace ns
 	{
         private CircleWipeController circleWipeController;
 
+        [SerializeField] private MMF_Player winFeedbacks;
 
         private void Start()
         {
@@ -22,6 +23,7 @@ namespace ns
         {
             if (other.CompareTag("Player"))
             {
+                winFeedbacks?.PlayFeedbacks();
                 other.GetComponentInParent<character_push>().DisableInput();
                 circleWipeController.FadeOut(() => GameManager.Instance.LoadNextScene());
             }
