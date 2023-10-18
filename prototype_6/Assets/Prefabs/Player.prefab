@@ -4762,8 +4762,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceMagnitude: 5
+  OnFire: 0
+  TinyFire: {fileID: 0}
   moveSpeed: 1
   fireFXGO: {fileID: 7081589262424317809}
+  firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
 --- !u!54 &3781811736894053386
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4789,7 +4792,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!1 &2944115566253208460
 GameObject:

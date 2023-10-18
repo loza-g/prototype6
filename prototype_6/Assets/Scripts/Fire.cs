@@ -9,6 +9,11 @@ namespace ns
 	/// </summary>
 	public class Fire : MonoBehaviour
 	{
-		
-	}
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+            }
+        }
+    }
 }

@@ -13,20 +13,11 @@ namespace ns
 
 		[SerializeField] private float pushSpeed = 1;
 
-
-		public void Move(Vector3 direction)
+        [SerializeField] private GameObject[] arrowIndicatorArr;
+        public void Move(Vector3 direction)
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
 
-			if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-			{
-				direction = new Vector3(direction.x, 0, 0).normalized;
-            }
-            else
-			{
-                direction = new Vector3(0, 0, direction.z).normalized;
-
-            }
             StartCoroutine(MoveToTarget(transform.position + direction));
             
         }
@@ -40,5 +31,33 @@ namespace ns
 			}
 			transform.position = target;
 		}
+
+        public void UpdateArrowIndicator(Vector3 pushDirection)
+        {
+            if (Physics.Raycast(transform.position, pushDirection, 1, boundaryLayer)) return;
+
+           
+            CloseAllArrowIndicators();
+
+            if (pushDirection == Vector3.left)
+                arrowIndicatorArr[0].SetActive(true);
+            else if (pushDirection == Vector3.right)
+                arrowIndicatorArr[1].SetActive(true);
+            else if (pushDirection == Vector3.back)
+                arrowIndicatorArr[2].SetActive(true);
+            else if (pushDirection == Vector3.forward)
+                arrowIndicatorArr[3].SetActive(true);
+            
+        }
+
+        public void CloseAllArrowIndicators()
+        {
+            for (int i = 0; i < arrowIndicatorArr.Length; i++)
+            {
+                arrowIndicatorArr[i].SetActive(false);
+            }
+        }
+
+        
     }
 }
