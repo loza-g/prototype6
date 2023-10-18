@@ -12,7 +12,7 @@ public class character_push : MonoBehaviour
     [SerializeField]
     private float forceMagnitude;
     public bool OnFire;
-
+    [SerializeField] private AudioSource audioPlayer;
     private Vector2 moveInput;
     [SerializeField] private float moveSpeed = 0.01f;
 
@@ -157,6 +157,7 @@ public class character_push : MonoBehaviour
             //Destroy(collision.gameObject);
             fireFXGO.SetActive(false);
             OnFire = false;
+            audioPlayer.Play();
             StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
             IgniteAdjacentGrassBlocks(collision.collider);
 
