@@ -18,13 +18,22 @@ namespace ns
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
 
-			StartCoroutine(MoveToTarget(transform.position + direction));
+			if(Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+			{
+				direction = new Vector3(direction.x, 0, 0).normalized;
+            }
+            else
+			{
+                direction = new Vector3(0, 0, direction.z).normalized;
+
+            }
+            StartCoroutine(MoveToTarget(transform.position + direction));
             
         }
 
 		private IEnumerator MoveToTarget(Vector3 target)
 		{
-			while ((target - transform.position).sqrMagnitude > 0.02f)
+			while ((target - transform.position).sqrMagnitude > 0.01f)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, target, pushSpeed * Time.deltaTime);
 				yield return null;

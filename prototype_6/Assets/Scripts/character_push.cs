@@ -1,7 +1,9 @@
 using ns;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class character_push : MonoBehaviour
 {
@@ -13,6 +15,44 @@ public class character_push : MonoBehaviour
     [SerializeField] private float moveSpeed = 0.01f;
 
     [SerializeField] private GameObject fireFXGO;
+
+    private PlayerControls controls;
+
+    private PushableBlock collidedPushableBlock;
+
+    private void Awake()
+    {
+        controls = new PlayerControls();
+        controls.Gameplay.HorizontalMove.performed += ctx => xInput = ctx.ReadValue<float>();
+        controls.Gameplay.HorizontalMove.canceled += ctx => xInput = 0;
+        controls.Gameplay.VerticalMove.performed += ctx => yInput = ctx.ReadValue<float>();
+        controls.Gameplay.VerticalMove.canceled += ctx => yInput = 0;
+        controls.Gameplay.Push.performed += OnPushButtonPressed;
+    }
+
+    private void OnPushButtonPressed(InputAction.CallbackContext context)
+    {
+        if (collidedPushableBlock != null)
+        {
+            Vector3 moveDirection = collidedPushableBlock.gameObject.transform.position - transform.position;
+            moveDirection.y = 0;
+            moveDirection.Normalize();
+
+            collidedPushableBlock.Move(moveDirection);
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls.Disable();
+    }
+
     void Start()
     {
         OnFire = false;
@@ -20,12 +60,9 @@ public class character_push : MonoBehaviour
 
     void Update()
     {
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
-
         Vector3 moveDirection = new Vector3(xInput, 0, yInput).normalized;
 
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        transform.Translate(-moveDirection * moveSpeed * Time.deltaTime);
         //if (Input.GetKey(KeyCode.UpArrow))
         //{
         //    transform.Translate(0.0f, 0f, -0.01f); 
@@ -43,18 +80,19 @@ public class character_push : MonoBehaviour
         //    transform.Translate(-0.01f, 0f, 0f);
         //}
 
+
     }
+
     private void OnCollisionEnter(Collision collision)
     {
         
-        if (collision.gameObject.CompareTag("shadow"))
+        if (collision.gameObject.CompareTag("grass"))
         {
             Debug.Log("collision with moveable shadow box");
-            Vector3 moveDirection = collision.gameObject.transform.position - transform.position;
-            moveDirection.y = 0;
-            moveDirection.Normalize();
-
-            collision.gameObject.GetComponent<PushableBlock>().Move(moveDirection);
+            if(collidedPushableBlock != null)
+                collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
+            collidedPushableBlock = collision.gameObject.GetComponent<PushableBlock>();
+            collidedPushableBlock.GetComponentInChildren<Outline>().enabled = true;
 
             //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
         }
@@ -64,7 +102,7 @@ public class character_push : MonoBehaviour
         if (rigidbody != null)
         {
             
-            if (!collision.gameObject.CompareTag("shadow"))
+            if (!collision.gameObject.CompareTag("grass"))
             {
                 Debug.Log("collision with static box, cannot move");
             }
@@ -76,6 +114,17 @@ public class character_push : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("grass"))
+        {
+            if(collidedPushableBlock!= null)
+                collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
+            collidedPushableBlock = null;
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)

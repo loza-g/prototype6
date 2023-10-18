@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8915098682932705846}
   - component: {fileID: 6894876093454336151}
   - component: {fileID: 9074985718106343151}
+  - component: {fileID: 2555251492630919431}
   m_Layer: 0
   m_Name: Grass Cube
   m_TagString: grass
@@ -105,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9, y: 0.9, z: 0.9}
+  m_Center: {x: 0, y: -0.1, z: 0}
 --- !u!54 &9074985718106343151
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,8 +133,24 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
+--- !u!114 &2555251492630919431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677054847666660160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edc3946bcbf0fe34b81935024c6dca32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundaryLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  pushSpeed: 2
 --- !u!1001 &1425950351636630882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -153,6 +170,10 @@ PrefabInstance:
     - target: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
       propertyPath: m_TagString
       value: grass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4238882678060916, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
       propertyPath: m_LocalScale.x
@@ -212,7 +233,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7596097770226827108}
+      addedObject: {fileID: 2605250605382315653}
   m_SourcePrefab: {fileID: 100100000, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
 --- !u!4 &1425091829688187414 stripped
 Transform:
@@ -224,24 +245,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
   m_PrefabInstance: {fileID: 1425950351636630882}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &7596097770226827108
-BoxCollider:
+--- !u!114 &2605250605382315653
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427504603675624030}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

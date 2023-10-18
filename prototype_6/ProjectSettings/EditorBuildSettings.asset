@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Shence_Level1.unity
+    guid: e9846a944b7983c45b69e411fea5869c
   - enabled: 1
-    path: Assets/Scenes/level_1.unity
-    guid: f2c5cae0a9b264fc79cb10eb3e2b2f0e
+    path: Assets/Scenes/Shence_Level2.unity
+    guid: 386dbfae991a78541b1f335e6092ab80
   m_configObjects: {}
