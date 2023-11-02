@@ -12,7 +12,6 @@ public class character_push : MonoBehaviour
     [SerializeField]
     private float forceMagnitude;
     public bool OnFire;
-    [SerializeField] private AudioSource audioPlayer;
     private Vector2 moveInput;
     [SerializeField] private float moveSpeed = 0.01f;
 
@@ -25,8 +24,6 @@ public class character_push : MonoBehaviour
     private Vector3 pushDirection;
 
     [SerializeField] private LayerMask grassDetectLayer;
-
-    private CircleWipeController circleWipeController;
 
     [SerializeField] private MMF_Player walkingFeedbacks;
     [SerializeField] private float walkingInterval = 0.35f;
@@ -46,8 +43,6 @@ public class character_push : MonoBehaviour
         controls.Gameplay.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Gameplay.Push.performed += OnPushButtonPressed;
         controls.Gameplay.Restart.performed += ctx => GameManager.Instance.RestartCurrentScene();// circleWipeController.FadeOut(() => GameManager.Instance.RestartCurrentScene());
-
-        circleWipeController = FindObjectOfType<CircleWipeController>();
     }
 
     private void OnPushButtonPressed(InputAction.CallbackContext context)
@@ -157,7 +152,6 @@ public class character_push : MonoBehaviour
             //Destroy(collision.gameObject);
             fireFXGO.SetActive(false);
             OnFire = false;
-            audioPlayer.Play();
             StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
             IgniteAdjacentGrassBlocks(collision.collider);
 
