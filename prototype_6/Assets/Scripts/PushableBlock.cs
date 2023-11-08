@@ -10,7 +10,7 @@ namespace ns
 	/// </summary>
 	public class PushableBlock : MonoBehaviour
 	{
-		[SerializeField] private LayerMask boundaryLayer;
+		[SerializeField] public LayerMask boundaryLayer;
 
 		[SerializeField] private float pushSpeed = 1;
 
@@ -36,22 +36,31 @@ namespace ns
 			transform.position = target;
 		}
 
-        public void UpdateArrowIndicator(Vector3 pushDirection)
+        public bool UpdateArrowIndicator(Vector3 pushDirection)
         {
-            if (Physics.Raycast(transform.position, pushDirection, 1, boundaryLayer)) return;
+            if (Physics.Raycast(transform.position, pushDirection, 1, boundaryLayer)) return false;
 
            
             CloseAllArrowIndicators();
 
-            if (pushDirection == Vector3.left)
+            if (pushDirection == Vector3.left) {
                 arrowIndicatorArr[0].SetActive(true);
-            else if (pushDirection == Vector3.right)
+                gameObject.GetComponentInChildren<Outline>().enabled = true;
+            }
+            else if (pushDirection == Vector3.right) {
                 arrowIndicatorArr[1].SetActive(true);
-            else if (pushDirection == Vector3.back)
+                gameObject.GetComponentInChildren<Outline>().enabled = true;
+            }
+            else if (pushDirection == Vector3.back) {
                 arrowIndicatorArr[2].SetActive(true);
-            else if (pushDirection == Vector3.forward)
+                gameObject.GetComponentInChildren<Outline>().enabled = true;
+            }
+            else if (pushDirection == Vector3.forward) {
                 arrowIndicatorArr[3].SetActive(true);
-            
+                gameObject.GetComponentInChildren<Outline>().enabled = true;
+            }
+
+            return true;
         }
 
         public void CloseAllArrowIndicators()
