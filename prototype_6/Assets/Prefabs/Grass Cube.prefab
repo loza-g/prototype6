@@ -7867,7 +7867,6 @@ MonoBehaviour:
   - {fileID: 3541571022214320951}
   - {fileID: 5267533300133069721}
   pushingFeedbacks: {fileID: 1643955399648280489}
-  contactFeedback: {fileID: 3185017430165490026}
 --- !u!1 &8689955456994034380
 GameObject:
   m_ObjectHideFlags: 0

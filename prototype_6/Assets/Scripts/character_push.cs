@@ -32,6 +32,7 @@ public class character_push : MonoBehaviour
     [SerializeField] private MMF_Player contactFeedbacks;
     [SerializeField] private MMF_Player fireStartFeedbacks;
     [SerializeField] private MMF_Player fireStopFeedbacks;
+    [SerializeField] private MMF_Player noPushFeedback;
     private void Awake()
     {
         controls = new PlayerControls();
@@ -141,6 +142,8 @@ public class character_push : MonoBehaviour
             SetPushDirection(collision);
             if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
                 contactFeedbacks?.PlayFeedbacks();
+            } else {
+                noPushFeedback?.PlayFeedbacks();
             }
 
             //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
