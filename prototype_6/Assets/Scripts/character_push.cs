@@ -126,7 +126,7 @@ public class character_push : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        Debug.Log("collision with: " + collision.gameObject);
         if (collision.gameObject.CompareTag("grass"))
         {
             Debug.Log("collision with moveable shadow box");
@@ -136,12 +136,13 @@ public class character_push : MonoBehaviour
                 collidedPushableBlock.CloseAllArrowIndicators();
             }
             collidedPushableBlock = collision.gameObject.GetComponent<PushableBlock>();
-            collidedPushableBlock.GetComponentInChildren<Outline>().enabled = true;
+            
 
             SetPushDirection(collision);
-            collidedPushableBlock.UpdateArrowIndicator(pushDirection);
+            if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
+                contactFeedbacks?.PlayFeedbacks();
+            }
 
-            contactFeedbacks?.PlayFeedbacks();
             //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
         }
 
@@ -182,7 +183,7 @@ public class character_push : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("grass"))
         {
-            if (collidedPushableBlock != null)
+            if (collidedPushableBlock != null && collidedPushableBlock.gameObject == collision.gameObject)
             {
                 collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
                 collidedPushableBlock.CloseAllArrowIndicators();
