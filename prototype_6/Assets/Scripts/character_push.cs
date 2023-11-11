@@ -148,17 +148,28 @@ public class character_push : MonoBehaviour
 
         if (collision.gameObject.CompareTag("grass") && OnFire)
         {
-            //destroy block
-            //Destroy(collision.gameObject);
-            fireFXGO.SetActive(false);
-            OnFire = false;
-            StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
-            IgniteAdjacentGrassBlocks(collision.collider);
-
+            FlammableBlock burnComponent = collision.gameObject.GetComponentInParent<FlammableBlock>();
+            if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+            {
+                //destroy block
+                //Destroy(collision.gameObject);
+                fireFXGO.SetActive(false);
+                OnFire = false;
+                StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime += 0.35f));
+                IgniteAdjacentGrassBlocks(collision.collider);
+            }
         }
     }
 
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("water"))
+        {
+            OnFire = false;
+            fireFXGO.SetActive(false);
+        }
+    }
 
     private void SetPushDirection(Collision collision)
     {
@@ -207,48 +218,72 @@ public class character_push : MonoBehaviour
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }  
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.left, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.forward, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.back, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.up, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.down, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
 
@@ -283,7 +318,6 @@ public class character_push : MonoBehaviour
         OnFire = true;
         fireFXGO.SetActive(true);
     }
-
   
     //private void OnControllerColliderHit(ControllerColliderHit hit)
     //{
