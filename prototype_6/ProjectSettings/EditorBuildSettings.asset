@@ -21,8 +21,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Shence_Level3.unity
     guid: 386dbfae991a78541b1f335e6092ab80
   - enabled: 1
+    path: Assets/Scenes/Shence_Level4.unity
+    guid: 4ce1f5e3abe6d4c3488ce1c0ff53b113
+  - enabled: 1
     path: Assets/Scenes/Test Level 2.unity
     guid: 60f5d6813042f4d41b1f784360fb5420
+  - enabled: 1
+    path: Assets/Scenes/Shence_Level6.unity
+    guid: afea2558613a0da4dbb3ee3f267cdbae
   - enabled: 1
     path: Assets/Scenes/Shence_Level5.unity
     guid: ff1e7fe83dc3175419e39a745e3b2015
