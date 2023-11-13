@@ -2,6 +2,7 @@ using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 namespace ns
 {
@@ -17,6 +18,23 @@ namespace ns
         [SerializeField] private GameObject[] arrowIndicatorArr;
 
         [SerializeField] private MMF_Player pushingFeedbacks; 
+
+        private RaycastHit hit;
+
+        private character_push playerPushScript;
+
+        private void Start()
+        {
+            playerPushScript = FindObjectOfType<character_push>();
+            playerPushScript.OnMoveFinishedHandler += CheckPlayerAndSetArrowIndicator;
+            CheckPlayerAndSetArrowIndicator();
+        }
+
+        private void OnDestroy()
+        {
+            playerPushScript.OnMoveFinishedHandler -= CheckPlayerAndSetArrowIndicator;
+        }
+
         public void Move(Vector3 direction)
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
@@ -35,6 +53,38 @@ namespace ns
 			}
 			transform.position = target;
 		}
+
+        public void CheckPlayerAndSetArrowIndicator()
+        {
+            if (Physics.Raycast(transform.position, Vector3.right, out hit, 1, LayerMask.NameToLayer("Player")))
+            {
+                SetArrowIndicatorBasedOnPlayerPos();
+                Debug.Log("?????");
+            }
+            if (Physics.Raycast(transform.position, Vector3.left, out hit, 1, LayerMask.NameToLayer("Player")))
+            {
+                SetArrowIndicatorBasedOnPlayerPos();
+                Debug.Log("111111");
+            }
+            if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1, LayerMask.NameToLayer("Player")))
+            {
+                SetArrowIndicatorBasedOnPlayerPos();
+                Debug.Log("2222222");
+            }
+            if (Physics.Raycast(transform.position, Vector3.back, out hit, 1, LayerMask.NameToLayer("Player")))
+            {
+                SetArrowIndicatorBasedOnPlayerPos();
+                Debug.Log("333333333");
+            }
+        }
+
+        private void SetArrowIndicatorBasedOnPlayerPos()
+        {
+            Vector3 playerPushDirection = transform.position - hit.transform.position;
+            playerPushDirection.y = 0;
+            Debug.Log(playerPushDirection);
+            UpdateArrowIndicator(playerPushDirection);
+        }
 
         public bool UpdateArrowIndicator(Vector3 pushDirection)
         {

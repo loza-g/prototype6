@@ -33,6 +33,11 @@ public class character_push : MonoBehaviour
     [SerializeField] private MMF_Player fireStartFeedbacks;
     [SerializeField] private MMF_Player fireStopFeedbacks;
     [SerializeField] private MMF_Player noPushFeedback;
+
+    public bool isMoving;
+
+    public event Action OnMoveFinishedHandler;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -54,9 +59,9 @@ public class character_push : MonoBehaviour
             //moveDirection.y = 0;
             //moveDirection.Normalize();
 
-            collidedPushableBlock.Move(pushDirection);
+            //collidedPushableBlock.Move(pushDirection);
 
-            collidedPushableBlock.CloseAllArrowIndicators();
+            //collidedPushableBlock.CloseAllArrowIndicators();
         }
 
     }
@@ -88,6 +93,8 @@ public class character_push : MonoBehaviour
 
     void Update()
     {
+        if (isMoving) return;
+
         Vector3 input = -new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
@@ -101,50 +108,55 @@ public class character_push : MonoBehaviour
                 walkingFeedbacks?.PlayFeedbacks();
                 startWalkTime = Time.time + walkingInterval;
             }
+
+            if (skewedInput == Vector3.back) //W and A pressed
+                StartCoroutine(MoveToTarget(transform.position + -transform.forward));
+            else if (skewedInput == Vector3.forward)
+                StartCoroutine(MoveToTarget(transform.position + transform.forward));
+            else if (skewedInput == Vector3.left) //W and D pressed
+                StartCoroutine(MoveToTarget(transform.position + -transform.right));
+            else if (skewedInput == Vector3.right)
+                StartCoroutine(MoveToTarget(transform.position + transform.right));
         }
-        
 
-        transform.Translate(skewedInput * moveSpeed * Time.deltaTime);
-        //if (Input.GetKey(KeyCode.UpArrow))
-        //{
-        //    transform.Translate(0.0f, 0f, -0.01f); 
-        //}
-        //if (Input.GetKey(KeyCode.DownArrow))
-        //{
-        //    transform.Translate(0.0f, 0f, 0.01f);
-        //}
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    transform.Translate(0.01f, 0f, 0f);
-        //}
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    transform.Translate(-0.01f, 0f, 0f);
-        //}
+        //transform.Translate(skewedInput * moveSpeed * Time.deltaTime);
+    }
 
-
+    private IEnumerator MoveToTarget(Vector3 targetPos)
+    {
+        Debug.Log(targetPos);
+        isMoving = true;
+        while ((transform.position - targetPos).sqrMagnitude > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+            yield return null;
+        }
+        transform.position = targetPos;
+        isMoving = false;
+        OnMoveFinishedHandler?.Invoke();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision with: " + collision.gameObject);
         if (collision.gameObject.CompareTag("grass"))
         {
-            Debug.Log("collision with moveable shadow box");
             if (collidedPushableBlock != null)
             {
                 collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
-                collidedPushableBlock.CloseAllArrowIndicators();
+                //collidedPushableBlock.CloseAllArrowIndicators();
             }
             collidedPushableBlock = collision.gameObject.GetComponent<PushableBlock>();
             
 
             SetPushDirection(collision);
-            if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
-                contactFeedbacks?.PlayFeedbacks();
-            } else {
-                noPushFeedback?.PlayFeedbacks();
-            }
+
+            collidedPushableBlock.Move(pushDirection);
+
+            //if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
+            //    contactFeedbacks?.PlayFeedbacks();
+            //} else {
+            //    noPushFeedback?.PlayFeedbacks();
+            //}
 
             //rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
         }
@@ -175,10 +187,9 @@ public class character_push : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("grass")) 
         {
-
-            SetPushDirection(collision);
-            if (collidedPushableBlock != null)
-                collidedPushableBlock.UpdateArrowIndicator(pushDirection);
+            //SetPushDirection(collision);
+            //if (collidedPushableBlock != null)
+            //    collidedPushableBlock.UpdateArrowIndicator(pushDirection);
         }
     }
 
@@ -189,7 +200,7 @@ public class character_push : MonoBehaviour
             if (collidedPushableBlock != null && collidedPushableBlock.gameObject == collision.gameObject)
             {
                 collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
-                collidedPushableBlock.CloseAllArrowIndicators();
+                //collidedPushableBlock.CloseAllArrowIndicators();
                 collidedPushableBlock = null;
             }
 

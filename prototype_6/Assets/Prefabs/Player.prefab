@@ -4780,6 +4780,7 @@ MonoBehaviour:
   fireStartFeedbacks: {fileID: 9005720940750307874}
   fireStopFeedbacks: {fileID: 1727968901822054745}
   noPushFeedback: {fileID: 1071143547735736762}
+  isMoving: 0
 --- !u!54 &3781811736894053386
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5905,7 +5906,7 @@ GameObject:
   - component: {fileID: 3813178674045917583}
   - component: {fileID: 7234375176053809484}
   - component: {fileID: 2791934057825711125}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
