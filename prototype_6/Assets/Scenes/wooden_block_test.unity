@@ -2000,7 +2000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1878082342465718, guid: 8e2cb154a17147944861a70a5e621089, type: 3}
       propertyPath: m_TagString
-      value: water
+      value: wood
       objectReference: {fileID: 0}
     - target: {fileID: 4286840751669318, guid: 8e2cb154a17147944861a70a5e621089, type: 3}
       propertyPath: m_LocalPosition.x
