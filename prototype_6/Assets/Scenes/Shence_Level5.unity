@@ -49260,6 +49260,10 @@ PrefabInstance:
       propertyPath: audioPlayer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 384186292912725568, guid: 1a7100d426b940d4eb0e972e13223bbe, type: 3}
+      propertyPath: boundaryLayer.m_Bits
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 2316798224600401864, guid: 1a7100d426b940d4eb0e972e13223bbe, type: 3}
       propertyPath: m_Name
       value: Player
