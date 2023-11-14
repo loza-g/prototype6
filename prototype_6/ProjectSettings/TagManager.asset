@@ -9,6 +9,7 @@ TagManager:
   - fire
   - grass
   - water
+  - wood
   layers:
   - Default
   - TransparentFX
