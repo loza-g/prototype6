@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1976678897919184518}
   - component: {fileID: 6298915666049491025}
   - component: {fileID: 5902633776772573366}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fire
   m_TagString: fire
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.1
+  m_Radius: 0.9
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6298915666049491025
 Rigidbody:
@@ -111,6 +111,10 @@ PrefabInstance:
     - target: {fileID: 7057800371143487625, guid: 82d060d0e8fd9164f8f61aaf7a148b46, type: 3}
       propertyPath: m_Name
       value: SM_campfire_005
+      objectReference: {fileID: 0}
+    - target: {fileID: 7057800371143487625, guid: 82d060d0e8fd9164f8f61aaf7a148b46, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7057800371143487625, guid: 82d060d0e8fd9164f8f61aaf7a148b46, type: 3}
       propertyPath: m_IsActive
@@ -191,6 +195,10 @@ PrefabInstance:
       value: SM_campfire_002
       objectReference: {fileID: 0}
     - target: {fileID: 2519082434057314125, guid: 82561250608dfd54d834633a2ef56879, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519082434057314125, guid: 82561250608dfd54d834633a2ef56879, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -264,9 +272,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1006665470185180533}
     m_Modifications:
+    - target: {fileID: 1000010500526118, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011671376998, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
       propertyPath: m_Name
       value: TinyFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011671376998, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013861588696, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4000012166036088, guid: 28fbc97a4e7e92144af43a4bd05be737, type: 3}
       propertyPath: m_LocalPosition.x
@@ -434,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_campfire_003
       objectReference: {fileID: 0}
+    - target: {fileID: 2740596224101720550, guid: 5db7de3e67ce82243834564e9913e043, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3261552888126405468, guid: 5db7de3e67ce82243834564e9913e043, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.6806
@@ -511,6 +535,10 @@ PrefabInstance:
     - target: {fileID: 8233601333425800109, guid: ca4e22f1f2a41604d8887fb4f60ce127, type: 3}
       propertyPath: m_Name
       value: SM_campfire_004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8233601333425800109, guid: ca4e22f1f2a41604d8887fb4f60ce127, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8233601333425800109, guid: ca4e22f1f2a41604d8887fb4f60ce127, type: 3}
       propertyPath: m_IsActive

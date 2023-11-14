@@ -22,5 +22,24 @@ namespace ns
                 igniteOnce = true;
             }
         }
+        private void OnTriggerStay(Collider other)
+        {
+            if (igniteOnce) return;
+
+            if (other.CompareTag("grass"))
+            {
+                if (!other.GetComponentInParent<PushableBlock>().IsMoving())
+                {
+                    fireFXGO.SetActive(false);
+                    GameObject player = GameObject.Find("Player");
+                    if (player != null)
+                    {
+                        player.GetComponent<character_push>().BurnBlock(other);
+                    }
+                    igniteOnce = true;
+                }
+                
+            }
+        }
     }
 }

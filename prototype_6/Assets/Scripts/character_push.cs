@@ -161,6 +161,12 @@ public class character_push : MonoBehaviour
         }
     }
 
+    public void BurnBlock(Collider block)
+    {
+        StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(block.gameObject, igniteDelayTime += 0.35f));
+        IgniteAdjacentGrassBlocks(block);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {

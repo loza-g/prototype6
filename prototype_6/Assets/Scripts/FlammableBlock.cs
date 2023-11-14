@@ -1,49 +1,59 @@
+using MoreMountains.Feedbacks;
+using ns;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class FlammableBlock : MonoBehaviour
+namespace ns
 {
-    // Start is called before the first frame update
-    void Start()
+    public class FlammableBlock : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private bool wet = false;
-
-    public bool IsWet()
-    {
-        return wet;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("water"))
+        // Start is called before the first frame update
+        void Start()
         {
-            wet = true;
+
         }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("water"))
+        // Update is called once per frame
+        void Update()
         {
-            wet = true;
+
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("water"))
+        private bool wet = false;
+
+        public bool IsWet()
         {
-            wet = false;
+            return wet;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("water"))
+            {
+                wet = true;
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("water"))
+            {
+                wet = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("water"))
+            {
+                wet = false;
+            }
         }
     }
 }
+    

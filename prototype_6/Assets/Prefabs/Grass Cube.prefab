@@ -7632,6 +7632,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d102bfb61267649a0a8df61447d9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grassDetectLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
+  fireStartFeedbacks: {fileID: 6782661464262327709, guid: bfecee4f3d8b46b48bf8d62f643d8871, type: 3}
+  fireStopFeedbacks: {fileID: 4613087824383858661, guid: e6bbe4d8362eaf041bb1ca38917a042e, type: 3}
 --- !u!1 &8689955456994034380
 GameObject:
   m_ObjectHideFlags: 0

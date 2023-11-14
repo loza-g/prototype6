@@ -16,11 +16,16 @@ namespace ns
 
         [SerializeField] private GameObject[] arrowIndicatorArr;
 
-        [SerializeField] private MMF_Player pushingFeedbacks; 
+        [SerializeField] private MMF_Player pushingFeedbacks;
+
+        private bool moving = false;
+        public bool IsMoving() { return moving; }
+
         public void Move(Vector3 direction)
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
 
+            moving = true;
             StartCoroutine(MoveToTarget(transform.position + direction));
 
             pushingFeedbacks?.PlayFeedbacks();
@@ -28,12 +33,13 @@ namespace ns
 
 		private IEnumerator MoveToTarget(Vector3 target)
 		{
-			while ((target - transform.position).sqrMagnitude > 0.01f)
+            while ((target - transform.position).sqrMagnitude > 0.01f)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, target, pushSpeed * Time.deltaTime);
 				yield return null;
 			}
 			transform.position = target;
+            moving = false;
 		}
 
         public void UpdateArrowIndicator(Vector3 pushDirection)
