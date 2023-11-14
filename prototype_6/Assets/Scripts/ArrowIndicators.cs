@@ -22,13 +22,13 @@ public class ArrowIndicators : MonoBehaviour
             }
         }
 
-        private void SetArrowIndicatorBasedOnPlayerPos()
-        {
-            Vector3 playerPushDirection = transform.position - hit.transform.position;
-            playerPushDirection.y = 0;
-            Debug.Log(playerPushDirection);
-            UpdateArrowIndicator();
-        }
+        // private void SetArrowIndicatorBasedOnPlayerPos()
+        // {
+        //     Vector3 playerPushDirection = transform.position - hit.transform.position;
+        //     playerPushDirection.y = 0;
+        //     Debug.Log(playerPushDirection);
+        //     UpdateArrowIndicator();
+        // }
 
         public void UpdateArrowIndicator()
         {

@@ -22,12 +22,14 @@ namespace ns
         private RaycastHit hit;
 
         private character_push playerPushScript;
+        private bool canPush;
 
         private void Start()
         {
             playerPushScript = FindObjectOfType<character_push>();
             // playerPushScript.OnMoveFinishedHandler += CheckPlayerAndSetArrowIndicator;
             // CheckPlayerAndSetArrowIndicator();
+            canPush = true;
         }
 
         private void OnDestroy()
@@ -37,8 +39,8 @@ namespace ns
 
         public void Move(Vector3 direction)
 		{
-			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
-
+			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer) || !canPush) return;
+            canPush = false;
             StartCoroutine(MoveToTarget(transform.position + direction));
 
             pushingFeedbacks?.PlayFeedbacks();
@@ -52,6 +54,7 @@ namespace ns
 				yield return null;
 			}
 			transform.position = target;
+            canPush = true;
 		}
 
         private void OnDrawGizmos()

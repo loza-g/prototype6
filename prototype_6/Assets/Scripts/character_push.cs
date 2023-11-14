@@ -33,6 +33,11 @@ public class character_push : MonoBehaviour
     [SerializeField] private MMF_Player fireStartFeedbacks;
     [SerializeField] private MMF_Player fireStopFeedbacks;
     [SerializeField] private MMF_Player noPushFeedback;
+    [SerializeField] public LayerMask boundaryLayer;
+    public bool canMoveLeft = false;
+    public bool canMoveRight = false;
+    public bool canMoveUp = false;
+    public bool canMoveDown = false;
 
     public bool isMoving;
 
@@ -86,6 +91,38 @@ public class character_push : MonoBehaviour
         controls.Enable();
     }
 
+    public void GetAvailableMoves()
+    {
+        if (!Physics.Raycast(transform.position, new Vector3(1f, 0f, 0f), out hit, 1, boundaryLayer)) {
+            // Debug.Log(hit.collider.gameObject.name);
+            canMoveLeft = true;
+        } else {
+            Debug.Log(hit.collider.gameObject.name);
+            canMoveLeft = false;
+        }
+        if (!Physics.Raycast(transform.position, new Vector3(-1f, 0f, 0f), out hit, 1, boundaryLayer)) {
+            // Debug.Log(hit.collider.gameObject.name);
+            canMoveRight = true;
+        } else {
+            Debug.Log(hit.collider.gameObject.name);
+            canMoveRight = false;
+        }
+        if (!Physics.Raycast(transform.position, new Vector3(0f, 0f, -1f), out hit, 1, boundaryLayer)) {
+            // Debug.Log(hit.collider.gameObject.name);
+            canMoveUp = true;
+        } else {
+            Debug.Log(hit.collider.gameObject.name);
+            canMoveUp = false;
+        }
+        if (!Physics.Raycast(transform.position, new Vector3(0f, 0f, 1f), out hit, 1, boundaryLayer)) {
+            // Debug.Log(hit.collider.gameObject.name);
+            canMoveDown = true;
+        } else {
+            Debug.Log(hit.collider.gameObject.name);
+            canMoveDown = false;
+        }
+    }
+
     void Start()
     {
         OnFire = false;
@@ -94,6 +131,8 @@ public class character_push : MonoBehaviour
     void Update()
     {
         if (isMoving) return;
+
+        GetAvailableMoves();
 
         Vector3 input = -new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
@@ -109,13 +148,13 @@ public class character_push : MonoBehaviour
                 startWalkTime = Time.time + walkingInterval;
             }
 
-            if (skewedInput == Vector3.back) //W and A pressed
+            if (skewedInput == Vector3.back && canMoveUp) //W and A pressed
                 StartCoroutine(MoveToTarget(transform.position + -transform.forward));
-            else if (skewedInput == Vector3.forward)
+            else if (skewedInput == Vector3.forward && canMoveDown)
                 StartCoroutine(MoveToTarget(transform.position + transform.forward));
-            else if (skewedInput == Vector3.left) //W and D pressed
+            else if (skewedInput == Vector3.left && canMoveRight) //W and D pressed
                 StartCoroutine(MoveToTarget(transform.position + -transform.right));
-            else if (skewedInput == Vector3.right)
+            else if (skewedInput == Vector3.right && canMoveLeft)
                 StartCoroutine(MoveToTarget(transform.position + transform.right));
         }
 
