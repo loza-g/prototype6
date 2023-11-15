@@ -182,8 +182,10 @@ public class character_push : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision with: " + collision.gameObject.tag);
         if (collision.gameObject.CompareTag("grass"))
         {
+         //   Debug.Log("collision with moveable shadow box");
             if (collidedPushableBlock != null)
             {
                 collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
@@ -215,16 +217,27 @@ public class character_push : MonoBehaviour
         }
 
 
-        if (collision.gameObject.CompareTag("grass") && OnFire)
+        if ((collision.gameObject.CompareTag("grass") || collision.gameObject.CompareTag("wood")) && OnFire)
         {
             //destroy block
             //Destroy(collision.gameObject);
             fireFXGO.SetActive(false);
             OnFire = false;
-            StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
+            StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime += 0.35f));
             IgniteAdjacentGrassBlocks(collision.collider);
 
         }
+
+        //if(collision.gameObject.CompareTag("wood") && OnFire)
+        //{
+        //    Debug.Log("Made contact with wooden block");
+        //    fireFXGO.SetActive(false);
+        //    OnFire = false;
+        //    StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime += 0.35f));
+        //    IgniteAdjacentGrassBlocks(collision.collider);
+        //}
+
+     
     }
 
     
@@ -270,11 +283,13 @@ public class character_push : MonoBehaviour
     {
         //Collider[] colliders = Physics.OverlapSphere(position, 1f, grassDetectLayer); 
         List<Collider> colliders = new List<Collider>();
+       
 
         if(Physics.Raycast(grassCollider.transform.position, Vector3.right, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
+
                 colliders.Add(hit.collider);
                 visitedGrassColliders.Add(hit.collider);
             }
@@ -324,7 +339,8 @@ public class character_push : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.CompareTag("grass"))
+            Debug.Log(collider.gameObject.tag);
+            if (collider.gameObject.CompareTag("grass") || collider.gameObject.CompareTag("wood"))
             {
                 
                 StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collider.gameObject, igniteDelayTime+= 0.35f)); // Destroy the collider object after 3 seconds
@@ -351,39 +367,4 @@ public class character_push : MonoBehaviour
         OnFire = true;
         fireFXGO.SetActive(true);
     }
-
-  
-    //private void OnControllerColliderHit(ControllerColliderHit hit)
-    //{
-    //    Rigidbody rigidbody = hit.collider.attachedRigidbody;
-    //    if(rigidbody != null)
-    //    {
-    //        if (hit.gameObject.CompareTag("shadow"))
-    //        {
-    //            Debug.Log("collision with moveable shadow box");
-    //            Vector3 forceDirection = hit.gameObject.transform.position - transform.position;
-    //            forceDirection.y = 0;
-    //            forceDirection.Normalize();
-
-    //            rigidbody.AddForceAtPosition(forceDirection * forceMagnitude, transform.position, ForceMode.Impulse);
-    //        }
-    //        if (!hit.gameObject.CompareTag("shadow"))
-    //        {
-    //            Debug.Log("collision with static box, cannot move");
-    //        }
-    //        if (hit.gameObject.CompareTag("flag"))
-    //        {
-    //            Debug.Log("Captured Flag!!");
-    //        }
-    //        if (hit.gameObject.CompareTag("fire"))
-    //        {
-    //            Debug.Log("Collision with fire");
-    //            OnFire = true;
-    //        }
-    //        if(hit.gameObject.CompareTag("grass") && OnFire)
-    //        {
-    //            //destroy block
-    //        }
-    //    }
-    //}
 }
