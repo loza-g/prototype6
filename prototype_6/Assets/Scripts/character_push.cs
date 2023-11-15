@@ -182,6 +182,18 @@ public class character_push : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("collision with: " + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("wood"))
+        {
+            if (!OnFire) {
+                StopCoroutine(movementCoroutine);
+                transform.position = startPos;
+                isMoving = false;
+                OnMoveFinishedHandler?.Invoke();
+                noPushFeedback?.PlayFeedbacks();
+                return;
+            }
+        }
+
         if (collision.gameObject.CompareTag("grass"))
         {
          //   Debug.Log("collision with moveable shadow box");
@@ -202,6 +214,17 @@ public class character_push : MonoBehaviour
                 OnMoveFinishedHandler?.Invoke();
                 noPushFeedback?.PlayFeedbacks();
                 return;
+            }
+
+            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, out hit, 1) && !OnFire) {
+                if (hit.collider.gameObject.CompareTag("grass")) {
+                    StopCoroutine(movementCoroutine);
+                    transform.position = startPos;
+                    isMoving = false;
+                    OnMoveFinishedHandler?.Invoke();
+                    noPushFeedback?.PlayFeedbacks();
+                    return;
+                }
             }
 
             collidedPushableBlock.Move(pushDirection);
