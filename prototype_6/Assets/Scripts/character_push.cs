@@ -143,13 +143,13 @@ public class character_push : MonoBehaviour
         var skewedInput = matrix.MultiplyPoint3x4(input);
         if(input.magnitude > 0)
         {
-            if ((skewedInput - Vector3.back).sqrMagnitude < 0.2f && canMoveUp)  //W and A pressed
+            if ((skewedInput - Vector3.back).sqrMagnitude < 0.45f && canMoveUp)  //W and A pressed
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.forward));
-            else if ((skewedInput - Vector3.forward).sqrMagnitude < 0.2f && canMoveDown)
+            else if ((skewedInput - Vector3.forward).sqrMagnitude < 0.45f && canMoveDown)
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.forward));
-            else if ((skewedInput - Vector3.left).sqrMagnitude < 0.2f && canMoveRight) //W and D pressed
+            else if ((skewedInput - Vector3.left).sqrMagnitude < 0.45f && canMoveRight) //W and D pressed
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.right));
-            else if ((skewedInput - Vector3.right).sqrMagnitude < 0.2f && canMoveLeft)
+            else if ((skewedInput - Vector3.right).sqrMagnitude < 0.45f && canMoveLeft)
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.right));
         }
 
