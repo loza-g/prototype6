@@ -7861,7 +7861,7 @@ MonoBehaviour:
   boundaryLayer:
     serializedVersion: 2
     m_Bits: 833
-  pushSpeed: 2
+  pushSpeed: 4
   arrowIndicatorArr:
   - {fileID: 873837522962187486}
   - {fileID: 2679234991603325204}
