@@ -4889,7 +4889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceMagnitude: 5
   OnFire: 0
-  moveSpeed: 2
+  moveSpeed: 1.5
   fireFXGO: {fileID: 7081589262424317809}
   firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
   grassDetectLayer:
