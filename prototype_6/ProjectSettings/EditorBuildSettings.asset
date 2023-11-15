@@ -51,6 +51,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Shence_Rainy Level 2.unity
     guid: f3ae1c8f87ff0fe46ae0f294982fdfef
   - enabled: 1
-    path: Assets/Scenes/Shence_Rainy Level 3.unity
+    path: Assets/Scenes/Shence_Rainy and Wooden Level 1.unity
     guid: 2e05e1d4eb4564cf094f2205794f81ca
+  - enabled: 1
+    path: Assets/Scenes/Shence_Rainy and Wooden Level 2.unity
+    guid: b523b5019f872774f988127da489211c
   m_configObjects: {}
