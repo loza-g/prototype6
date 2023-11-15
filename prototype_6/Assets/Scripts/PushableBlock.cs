@@ -2,6 +2,7 @@ using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 namespace ns
 {
@@ -17,10 +18,29 @@ namespace ns
         [SerializeField] private GameObject[] arrowIndicatorArr;
 
         [SerializeField] private MMF_Player pushingFeedbacks; 
+
+        private RaycastHit hit;
+
+        private character_push playerPushScript;
+        private bool canPush;
+
+        private void Start()
+        {
+            playerPushScript = FindObjectOfType<character_push>();
+            // playerPushScript.OnMoveFinishedHandler += CheckPlayerAndSetArrowIndicator;
+            // CheckPlayerAndSetArrowIndicator();
+            canPush = true;
+        }
+
+        private void OnDestroy()
+        {
+            // playerPushScript.OnMoveFinishedHandler -= CheckPlayerAndSetArrowIndicator;
+        }
+
         public void Move(Vector3 direction)
 		{
-			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
-
+			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer) || !canPush) return;
+            canPush = false;
             StartCoroutine(MoveToTarget(transform.position + direction));
 
             pushingFeedbacks?.PlayFeedbacks();
@@ -34,42 +54,8 @@ namespace ns
 				yield return null;
 			}
 			transform.position = target;
+            canPush = true;
 		}
-
-        public bool UpdateArrowIndicator(Vector3 pushDirection)
-        {
-            if (Physics.Raycast(transform.position, pushDirection, 1, boundaryLayer)) return false;
-
-           
-            CloseAllArrowIndicators();
-
-            if (pushDirection == Vector3.left) {
-                arrowIndicatorArr[0].SetActive(true);
-                gameObject.GetComponentInChildren<Outline>().enabled = true;
-            }
-            else if (pushDirection == Vector3.right) {
-                arrowIndicatorArr[1].SetActive(true);
-                gameObject.GetComponentInChildren<Outline>().enabled = true;
-            }
-            else if (pushDirection == Vector3.back) {
-                arrowIndicatorArr[2].SetActive(true);
-                gameObject.GetComponentInChildren<Outline>().enabled = true;
-            }
-            else if (pushDirection == Vector3.forward) {
-                arrowIndicatorArr[3].SetActive(true);
-                gameObject.GetComponentInChildren<Outline>().enabled = true;
-            }
-
-            return true;
-        }
-
-        public void CloseAllArrowIndicators()
-        {
-            for (int i = 0; i < arrowIndicatorArr.Length; i++)
-            {
-                arrowIndicatorArr[i].SetActive(false);
-            }
-        }
 
         private void OnDrawGizmos()
         {
