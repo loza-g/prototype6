@@ -196,7 +196,7 @@ public class character_push : MonoBehaviour
 
             SetPushDirection(collision);
 
-            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, 1, boundaryLayer)) {
+            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, 1, boundaryLayer) && !OnFire) {
                 StopCoroutine(movementCoroutine);
                 transform.position = startPos;
                 isMoving = false;
