@@ -8469,10 +8469,10 @@ GameObject:
   - component: {fileID: 1031115451310769174}
   - component: {fileID: 3896256606843858596}
   - component: {fileID: 7537108410494087707}
-  - component: {fileID: 2731456423364958322}
+  - component: {fileID: 2708924818899876347}
   m_Layer: 9
   m_Name: Wood Cube
-  m_TagString: grass
+  m_TagString: wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8494,6 +8494,7 @@ Transform:
   - {fileID: 5944592219187492908}
   - {fileID: 2826713390161426627}
   - {fileID: 1788483863864729499}
+  - {fileID: 2357714640145602553}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1031115451310769174
@@ -8567,7 +8568,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: -0.05, z: 0}
---- !u!114 &2731456423364958322
+--- !u!114 &2708924818899876347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8576,19 +8577,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7801549484264657069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc3946bcbf0fe34b81935024c6dca32, type: 3}
+  m_Script: {fileID: 11500000, guid: e9d102bfb61267649a0a8df61447d9b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundaryLayer:
-    serializedVersion: 2
-    m_Bits: 833
-  pushSpeed: 2
-  arrowIndicatorArr:
-  - {fileID: 8257038823077165086}
-  - {fileID: 8829705338196098877}
-  - {fileID: 3126241865130340675}
-  - {fileID: 6856290860568993495}
-  pushingFeedbacks: {fileID: 1665365113795684729}
 --- !u!1 &8257038823077165086
 GameObject:
   m_ObjectHideFlags: 0
@@ -8655,6 +8646,68 @@ Transform:
   - {fileID: 1980952776361802913}
   m_Father: {fileID: 5944592219187492908}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+--- !u!1001 &2824585466779578386
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6042141859854000881}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000057601163
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000057601163
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+      propertyPath: m_Name
+      value: SM_WoodenBlock
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+--- !u!4 &2357714640145602553 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 14f5df8a048ae49478c82a39caed9864, type: 3}
+  m_PrefabInstance: {fileID: 2824585466779578386}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3748350765555646517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8673,7 +8726,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1826930944315196, guid: b208fac95d714494791cb4ac1ce8272f, type: 3}
       propertyPath: m_TagString
