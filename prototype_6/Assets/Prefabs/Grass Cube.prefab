@@ -7748,6 +7748,7 @@ GameObject:
   - component: {fileID: 8915098682932705846}
   - component: {fileID: 6894876093454336151}
   - component: {fileID: 2555251492630919431}
+  - component: {fileID: 9073129326557168674}
   m_Layer: 9
   m_Name: Grass Cube
   m_TagString: grass
@@ -7867,6 +7868,24 @@ MonoBehaviour:
   - {fileID: 3541571022214320951}
   - {fileID: 5267533300133069721}
   pushingFeedbacks: {fileID: 1643955399648280489}
+--- !u!114 &9073129326557168674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677054847666660160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d102bfb61267649a0a8df61447d9b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grassDetectLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
+  fireStartFeedbacks: {fileID: 6782661464262327709, guid: bfecee4f3d8b46b48bf8d62f643d8871, type: 3}
+  fireStopFeedbacks: {fileID: 4613087824383858661, guid: e6bbe4d8362eaf041bb1ca38917a042e, type: 3}
 --- !u!1 &8689955456994034380
 GameObject:
   m_ObjectHideFlags: 0
