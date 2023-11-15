@@ -37,18 +37,13 @@ namespace ns
             // playerPushScript.OnMoveFinishedHandler -= CheckPlayerAndSetArrowIndicator;
         }
 
-        public void Move(Vector3 direction)
-		{
-			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer) || !canPush) return;
-            canPush = false;
-        [SerializeField] private MMF_Player pushingFeedbacks;
-
         private bool moving = false;
         public bool IsMoving() { return moving; }
 
         public void Move(Vector3 direction)
 		{
-			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer)) return;
+			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer) || !canPush) return;
+            canPush = false;
 
             moving = true;
             StartCoroutine(MoveToTarget(transform.position + direction));
