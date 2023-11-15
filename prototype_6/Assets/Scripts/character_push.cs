@@ -38,8 +38,10 @@ public class character_push : MonoBehaviour
     public bool canMoveRight = false;
     public bool canMoveUp = false;
     public bool canMoveDown = false;
+    public Vector3 startPos;
 
     public bool isMoving;
+    private Coroutine movementCoroutine;
 
     public event Action OnMoveFinishedHandler;
 
@@ -142,20 +144,14 @@ public class character_push : MonoBehaviour
 
         if(input.magnitude > 0)
         {
-            if(startWalkTime < Time.time)
-            {
-                walkingFeedbacks?.PlayFeedbacks();
-                startWalkTime = Time.time + walkingInterval;
-            }
-
             if (skewedInput == Vector3.back && canMoveUp) //W and A pressed
-                StartCoroutine(MoveToTarget(transform.position + -transform.forward));
+                movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.forward));
             else if (skewedInput == Vector3.forward && canMoveDown)
-                StartCoroutine(MoveToTarget(transform.position + transform.forward));
+                movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.forward));
             else if (skewedInput == Vector3.left && canMoveRight) //W and D pressed
-                StartCoroutine(MoveToTarget(transform.position + -transform.right));
+                movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.right));
             else if (skewedInput == Vector3.right && canMoveLeft)
-                StartCoroutine(MoveToTarget(transform.position + transform.right));
+                movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.right));
         }
 
         //transform.Translate(skewedInput * moveSpeed * Time.deltaTime);
@@ -165,12 +161,21 @@ public class character_push : MonoBehaviour
     {
         Debug.Log(targetPos);
         isMoving = true;
+        startPos = transform.position;
         while ((transform.position - targetPos).sqrMagnitude > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+
+            if(startWalkTime < Time.time)
+            {
+                walkingFeedbacks?.PlayFeedbacks();
+                startWalkTime = Time.time + walkingInterval;
+            }
+            
             yield return null;
         }
         transform.position = targetPos;
+        startPos = transform.position;
         isMoving = false;
         OnMoveFinishedHandler?.Invoke();
     }
@@ -188,6 +193,15 @@ public class character_push : MonoBehaviour
             
 
             SetPushDirection(collision);
+
+            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, 1, boundaryLayer)) {
+                StopCoroutine(movementCoroutine);
+                transform.position = startPos;
+                isMoving = false;
+                OnMoveFinishedHandler?.Invoke();
+                noPushFeedback?.PlayFeedbacks();
+                return;
+            }
 
             collidedPushableBlock.Move(pushDirection);
 

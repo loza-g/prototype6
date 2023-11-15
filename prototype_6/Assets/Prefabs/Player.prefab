@@ -4901,6 +4901,14 @@ MonoBehaviour:
   fireStartFeedbacks: {fileID: 9005720940750307874}
   fireStopFeedbacks: {fileID: 1727968901822054745}
   noPushFeedback: {fileID: 1071143547735736762}
+  boundaryLayer:
+    serializedVersion: 2
+    m_Bits: 65
+  canMoveLeft: 0
+  canMoveRight: 0
+  canMoveUp: 0
+  canMoveDown: 0
+  startPos: {x: 0, y: 0, z: 0}
   isMoving: 0
 --- !u!54 &3781811736894053386
 Rigidbody:
@@ -4948,7 +4956,7 @@ MonoBehaviour:
   - {fileID: 3536747523211619638}
   boundaryLayer:
     serializedVersion: 2
-    m_Bits: 832
+    m_Bits: 65
 --- !u!1 &2810383325609677216
 GameObject:
   m_ObjectHideFlags: 0
