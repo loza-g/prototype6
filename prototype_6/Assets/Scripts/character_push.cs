@@ -217,7 +217,7 @@ public class character_push : MonoBehaviour
             }
 
             if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, out hit, 1) && !OnFire) {
-                if (hit.collider.gameObject.CompareTag("grass")) {
+                if (hit.collider.gameObject.CompareTag("grass") || hit.collider.gameObject.CompareTag("flag") ) {
                     StopCoroutine(movementCoroutine);
                     transform.position = startPos;
                     isMoving = false;
