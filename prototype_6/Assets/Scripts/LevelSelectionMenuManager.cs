@@ -25,7 +25,7 @@ public class LevelSelectionMenuManager : MonoBehaviour
     public void OnClickLevel(int levelNum) 
     {
         currLevel = levelNum;
-        SceneManager.LoadScene(currLevel-1);
+        SceneManager.LoadScene(currLevel);
     }
 
     public void OnClickBack() 

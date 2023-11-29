@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextScene()
     {
-        PlayerPrefs.SetInt("level", SceneManager.GetActiveScene().buildIndex + 2);
+        PlayerPrefs.SetInt("level", SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
