@@ -137,6 +137,8 @@ MonoBehaviour:
   rayCastLayers:
     serializedVersion: 2
     m_Bits: 513
+  grassOriginalMaterial: {fileID: 2100000, guid: 937dcf4316305ae4384cc6086d2a7dde, type: 2}
+  grassWetMaterial: {fileID: 2100000, guid: ebc6c4143f2d47d43b1a6160eb47e7f7, type: 2}
 --- !u!54 &8866482717829331703
 Rigidbody:
   m_ObjectHideFlags: 0

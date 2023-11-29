@@ -44,6 +44,7 @@ public class character_push : MonoBehaviour
     private Coroutine movementCoroutine;
 
     public event Action OnMoveFinishedHandler;
+    private bool isPushingBlock;
 
     private void Awake()
     {
@@ -163,7 +164,7 @@ public class character_push : MonoBehaviour
         startPos = transform.position;
         while ((transform.position - targetPos).sqrMagnitude > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, isPushingBlock? Time.deltaTime * moveSpeed * 0.5f : Time.deltaTime * moveSpeed);
 
             if(startWalkTime < Time.time)
             {
@@ -176,6 +177,7 @@ public class character_push : MonoBehaviour
         transform.position = targetPos;
         startPos = transform.position;
         isMoving = false;
+        isPushingBlock = false;
         OnMoveFinishedHandler?.Invoke();
     }
 
@@ -228,6 +230,7 @@ public class character_push : MonoBehaviour
             }
 
             collidedPushableBlock.Move(pushDirection);
+            isPushingBlock = true;
 
             //if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
             //    contactFeedbacks?.PlayFeedbacks();

@@ -12,6 +12,8 @@ namespace ns
 		[SerializeField] private Transform rainAreaTrans;
 		private RaycastHit hit;
 		[SerializeField] private LayerMask rayCastLayers;
+        [SerializeField] private Material grassOriginalMaterial;
+        [SerializeField] private Material grassWetMaterial;
 
         private void Update()
         {
@@ -19,6 +21,22 @@ namespace ns
 			{
 				rainAreaTrans.position = hit.point;
 			}
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+			if (other.CompareTag("grass"))
+			{
+				other.GetComponent<Renderer>().material = grassWetMaterial;
+			}
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("grass"))
+            {
+                other.GetComponent<Renderer>().material = grassOriginalMaterial;
+            }
         }
     }
 }
