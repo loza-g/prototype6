@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: afea2558613a0da4dbb3ee3f267cdbae
+<<<<<<<< HEAD:prototype_6/Assets/Scenes/Shence_Level6.unity.meta
+guid: 9da10bd3b0ca64c609a85eb0684a6ff5
 DefaultImporter:
+========
+guid: bfecee4f3d8b46b48bf8d62f643d8871
+PrefabImporter:
+>>>>>>>> feature-rain:prototype_6/Assets/Prefabs/Fire Start Feedbacks.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

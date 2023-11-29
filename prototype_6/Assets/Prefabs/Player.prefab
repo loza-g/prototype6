@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8757433602737624555}
   - component: {fileID: 7824464319569245417}
   - component: {fileID: 8767110157503503215}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4724,7 +4724,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2947211880317706511}
   - component: {fileID: 4667981192918194807}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: X Positive Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4807,7 +4807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2029674101584491011}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Arrow Indicators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4845,7 +4845,7 @@ GameObject:
   - component: {fileID: 384186292912725568}
   - component: {fileID: 3781811736894053386}
   - component: {fileID: 317332140410601126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -4889,7 +4889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceMagnitude: 5
   OnFire: 0
-  moveSpeed: 2
+  moveSpeed: 3
   fireFXGO: {fileID: 7081589262424317809}
   firePrefab: {fileID: 535831289853398972, guid: bc4266e9901c68240819438a40b32985, type: 3}
   grassDetectLayer:
@@ -4967,7 +4967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6896314078872068932}
   - component: {fileID: 8570508561244743439}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walking Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5217,7 +5217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6298579903494837569}
   - component: {fileID: 1071143547735736762}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: NoPush Feedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5464,7 +5464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7634578143374965357}
   - component: {fileID: 5886451952138542453}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Point light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5558,7 +5558,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6793945847758941414}
   - component: {fileID: 1727968901822054745}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire Stop Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5805,7 +5805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5578209272541956226}
   - component: {fileID: 4990588899437890410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Z Positive Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5889,7 +5889,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2079748726083323641}
   - component: {fileID: 9005720940750307874}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire Start Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6136,7 +6136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8877964774370527736}
   - component: {fileID: 4451842675949535052}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: X Negative Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6349,7 +6349,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1394218167645072982}
   - component: {fileID: 8686822431411604258}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Z Negative Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6435,7 +6435,7 @@ GameObject:
   - component: {fileID: 3674274726600989276}
   - component: {fileID: 4518838147139498485}
   - component: {fileID: 627848306948709367}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flame (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11246,7 +11246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 613961112016221409}
   - component: {fileID: 5128215318542571436}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Contact Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

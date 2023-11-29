@@ -37,10 +37,15 @@ namespace ns
             // playerPushScript.OnMoveFinishedHandler -= CheckPlayerAndSetArrowIndicator;
         }
 
+        private bool moving = false;
+        public bool IsMoving() { return moving; }
+
         public void Move(Vector3 direction)
 		{
 			if (Physics.Raycast(transform.position, direction, 1, boundaryLayer) || !canPush) return;
             canPush = false;
+
+            moving = true;
             StartCoroutine(MoveToTarget(transform.position + direction));
 
             pushingFeedbacks?.PlayFeedbacks();
@@ -48,13 +53,14 @@ namespace ns
 
 		private IEnumerator MoveToTarget(Vector3 target)
 		{
-			while ((target - transform.position).sqrMagnitude > 0.01f)
+            while ((target - transform.position).sqrMagnitude > 0.01f)
 			{
 				transform.position = Vector3.MoveTowards(transform.position, target, pushSpeed * Time.deltaTime);
 				yield return null;
 			}
 			transform.position = target;
             canPush = true;
+            moving = false;
 		}
 
         private void OnDrawGizmos()

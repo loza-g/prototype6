@@ -44,6 +44,7 @@ public class character_push : MonoBehaviour
     private Coroutine movementCoroutine;
 
     public event Action OnMoveFinishedHandler;
+    private bool isPushingBlock;
 
     private void Awake()
     {
@@ -141,16 +142,15 @@ public class character_push : MonoBehaviour
         var matrix = Matrix4x4.Rotate(Quaternion.Euler(0, 45, 0));
 
         var skewedInput = matrix.MultiplyPoint3x4(input);
-
         if(input.magnitude > 0)
         {
-            if (skewedInput == Vector3.back && canMoveUp) //W and A pressed
+            if ((skewedInput - Vector3.back).sqrMagnitude < 0.45f && canMoveUp)  //W and A pressed
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.forward));
-            else if (skewedInput == Vector3.forward && canMoveDown)
+            else if ((skewedInput - Vector3.forward).sqrMagnitude < 0.45f && canMoveDown)
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.forward));
-            else if (skewedInput == Vector3.left && canMoveRight) //W and D pressed
+            else if ((skewedInput - Vector3.left).sqrMagnitude < 0.45f && canMoveRight) //W and D pressed
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + -transform.right));
-            else if (skewedInput == Vector3.right && canMoveLeft)
+            else if ((skewedInput - Vector3.right).sqrMagnitude < 0.45f && canMoveLeft)
                 movementCoroutine = StartCoroutine(MoveToTarget(transform.position + transform.right));
         }
 
@@ -164,7 +164,7 @@ public class character_push : MonoBehaviour
         startPos = transform.position;
         while ((transform.position - targetPos).sqrMagnitude > 0.01f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, isPushingBlock? Time.deltaTime * moveSpeed * 0.5f : Time.deltaTime * moveSpeed);
 
             if(startWalkTime < Time.time)
             {
@@ -177,13 +177,28 @@ public class character_push : MonoBehaviour
         transform.position = targetPos;
         startPos = transform.position;
         isMoving = false;
+        isPushingBlock = false;
         OnMoveFinishedHandler?.Invoke();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("collision with: " + collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("wood"))
+        {
+            if (!OnFire) {
+                StopCoroutine(movementCoroutine);
+                transform.position = startPos;
+                isMoving = false;
+                OnMoveFinishedHandler?.Invoke();
+                noPushFeedback?.PlayFeedbacks();
+                return;
+            }
+        }
+
         if (collision.gameObject.CompareTag("grass"))
         {
+         //   Debug.Log("collision with moveable shadow box");
             if (collidedPushableBlock != null)
             {
                 collidedPushableBlock.GetComponentInChildren<Outline>().enabled = false;
@@ -194,7 +209,7 @@ public class character_push : MonoBehaviour
 
             SetPushDirection(collision);
 
-            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, 1, boundaryLayer)) {
+            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, 1, boundaryLayer) && !OnFire) {
                 StopCoroutine(movementCoroutine);
                 transform.position = startPos;
                 isMoving = false;
@@ -203,7 +218,19 @@ public class character_push : MonoBehaviour
                 return;
             }
 
+            if (Physics.Raycast(collision.gameObject.transform.position, pushDirection, out hit, 1) && !OnFire) {
+                if (hit.collider.gameObject.CompareTag("grass") || hit.collider.gameObject.CompareTag("flag") ) {
+                    StopCoroutine(movementCoroutine);
+                    transform.position = startPos;
+                    isMoving = false;
+                    OnMoveFinishedHandler?.Invoke();
+                    noPushFeedback?.PlayFeedbacks();
+                    return;
+                }
+            }
+
             collidedPushableBlock.Move(pushDirection);
+            isPushingBlock = true;
 
             //if (collidedPushableBlock.UpdateArrowIndicator(pushDirection)) {
             //    contactFeedbacks?.PlayFeedbacks();
@@ -215,19 +242,47 @@ public class character_push : MonoBehaviour
         }
 
 
-        if (collision.gameObject.CompareTag("grass") && OnFire)
+        if ((collision.gameObject.CompareTag("grass") || collision.gameObject.CompareTag("wood")) && OnFire)
         {
-            //destroy block
-            //Destroy(collision.gameObject);
-            fireFXGO.SetActive(false);
-            OnFire = false;
-            StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime+=0.35f));
-            IgniteAdjacentGrassBlocks(collision.collider);
-
+            FlammableBlock burnComponent = collision.gameObject.GetComponentInParent<FlammableBlock>();
+            if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+            {
+                //destroy block
+                //Destroy(collision.gameObject);
+                fireFXGO.SetActive(false);
+                OnFire = false;
+                StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime += 0.35f));
+                IgniteAdjacentGrassBlocks(collision.collider);
+            }
         }
+
+        //if(collision.gameObject.CompareTag("wood") && OnFire)
+        //{
+        //    Debug.Log("Made contact with wooden block");
+        //    fireFXGO.SetActive(false);
+        //    OnFire = false;
+        //    StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collision.collider.gameObject, igniteDelayTime += 0.35f));
+        //    IgniteAdjacentGrassBlocks(collision.collider);
+        //}
+
+     
     }
 
-    
+    public void BurnBlock(Collider block)
+    {
+        StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(block.gameObject, igniteDelayTime += 0.35f));
+        IgniteAdjacentGrassBlocks(block);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("water"))
+        {
+            OnFire = false;
+            fireFXGO.SetActive(false);
+        }
+    }
 
     private void SetPushDirection(Collision collision)
     {
@@ -270,53 +325,78 @@ public class character_push : MonoBehaviour
     {
         //Collider[] colliders = Physics.OverlapSphere(position, 1f, grassDetectLayer); 
         List<Collider> colliders = new List<Collider>();
+       
 
         if(Physics.Raycast(grassCollider.transform.position, Vector3.right, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }  
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.left, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.forward, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.back, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.up, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
         if (Physics.Raycast(grassCollider.transform.position, Vector3.down, out hit, 1, grassDetectLayer))
         {
             if (!visitedGrassColliders.Contains(hit.collider))
             {
-                colliders.Add(hit.collider);
-                visitedGrassColliders.Add(hit.collider);
+                FlammableBlock burnComponent = hit.collider.GetComponentInParent<FlammableBlock>();
+                if (burnComponent != null && !burnComponent.IsWet()) // if block is flammable and not wet
+                {
+                    colliders.Add(hit.collider);
+                    visitedGrassColliders.Add(hit.collider);
+                }
             }
         }
 
@@ -324,7 +404,8 @@ public class character_push : MonoBehaviour
 
         foreach (Collider collider in colliders)
         {
-            if (collider.gameObject.CompareTag("grass"))
+            Debug.Log(collider.gameObject.tag);
+            if (collider.gameObject.CompareTag("grass") || collider.gameObject.CompareTag("wood"))
             {
                 
                 StartCoroutine(GenerateFireAndDestroyColliderAfterDelay(collider.gameObject, igniteDelayTime+= 0.35f)); // Destroy the collider object after 3 seconds
@@ -351,7 +432,6 @@ public class character_push : MonoBehaviour
         OnFire = true;
         fireFXGO.SetActive(true);
     }
-
   
     //private void OnControllerColliderHit(ControllerColliderHit hit)
     //{
