@@ -614,8 +614,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &161897467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,8 +1206,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &300017647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,8 +1396,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &380669351
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,8 +2097,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &594390288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,8 +2287,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &643568113
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,8 +3224,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &906872681
 GameObject:
   m_ObjectHideFlags: 0
@@ -3517,8 +3517,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1020403807
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,8 +3707,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1050156011
 GameObject:
   m_ObjectHideFlags: 0
@@ -4031,8 +4031,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1284868272
 GameObject:
   m_ObjectHideFlags: 0
@@ -4762,8 +4762,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1565830613
 GameObject:
   m_ObjectHideFlags: 0
@@ -5275,8 +5275,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1745239082
 GameObject:
   m_ObjectHideFlags: 0
@@ -5465,8 +5465,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1745435344
 GameObject:
   m_ObjectHideFlags: 0
@@ -5655,8 +5655,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1928467424
 GameObject:
   m_ObjectHideFlags: 0
@@ -5845,8 +5845,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &1991921349
 GameObject:
   m_ObjectHideFlags: 0
@@ -6186,8 +6186,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &2050953356
 GameObject:
   m_ObjectHideFlags: 0
@@ -6376,8 +6376,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &2062725119
 GameObject:
   m_ObjectHideFlags: 0
@@ -6702,8 +6702,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MaxScale: 1.1
-  Duration: 0.1
+  MaxScale: 1.15
+  Duration: 0.2
 --- !u!1 &2122526587
 GameObject:
   m_ObjectHideFlags: 0
