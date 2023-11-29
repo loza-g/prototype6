@@ -12,7 +12,8 @@ public class LevelSelectionMenuManager : MonoBehaviour
     }
 
     public void OnClickBack() {
-        this.gameObject.SetActive(false);
+        SceneManager.LoadScene("home_screen");
+        //this.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
